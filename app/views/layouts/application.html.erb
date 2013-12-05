@@ -1,14 +1,122 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>FirstApp</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Teststrap" %></title>
+    <%= csrf_meta_tags %>
 
-<%= yield %>
+    <%#= Le HTML5 shim, for IE6-8 support of HTML elements %>
+    <!-- [if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+    <![endif] --!>
 
-</body>
+    <%= stylesheet_link_tag "application", :media => "all" %>
+
+    <%#= For third-generation iPad with high-resolution Retina display: %>
+    <%#= Size should be 144 x 144 pixels %>
+    <%= favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
+
+    <%#= For iPhone with high-resolution Retina display: %>
+    <%#= Size should be 114 x 114 pixels %>
+    <%= favicon_link_tag 'apple-touch-icon-114x114-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '114x114' %>
+
+    <%#= For first- and second-generation iPad: %>
+    <%#= Size should be 72 x 72 pixels %>
+    <%= favicon_link_tag 'apple-touch-icon-72x72-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '72x72' %>
+
+    <%#= For non-Retina iPhone, iPod Touch, and Android 2.1+ devices: %>
+    <%#= Size should be 57 x 57 pixels %>
+    <%= favicon_link_tag 'apple-touch-icon-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png' %>
+
+    <%#= For all other devices %>
+    <%#= Size should be 32 x 32 pixels %>
+    <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
+  </head>
+  <body data-spy="scroll" data-target=".bs-docs-sidebar">
+
+    <!-- Navbar ================================================== -->
+    
+
+<nav class="navbar navbar-default" role="navigation">
+  <!-- Brand and toggle get grouped for better mobile display -->
+  <div class="navbar-header">
+    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" href="#">易学论坛</a>
+  </div>
+
+  <!-- Collect the nav links, forms, and other content for toggling -->
+  <div class="navbar navbar-inverse bs-docs-nav" id="navbar-collapse-1">
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="/">首页</a></li>
+      <li><a href="/topics">帖子</a></li>
+      <li class="dropdown">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Action</a></li>
+          <li><a href="#">Another action</a></li>
+          <li><a href="#">Something else here</a></li>
+          <li class="divider"></li>
+          <li><a href="#">Separated link</a></li>
+          <li class="divider"></li>
+          <li><a href="#">One more separated link</a></li>
+        </ul>
+      </li>
+    </ul>
+    <form class="navbar-form navbar-left" role="search">
+      <div class="form-group">
+        <input class="form-control" placeholder="搜索帖子" name="search_key" id="search_key" type="text">
+      </div>
+      <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="#">登陆</a></li>
+      <li><a href="#">注册</a></li>
+    </ul>
+  </div><!-- /.navbar-collapse -->
+</nav>
+
+
+    <div class="container">
+      <div class="row">
+      <div class="messages span9">
+        </%= bootstrap_flash %>
+      </div>
+      </div>
+      <div class="row">
+        </%= render_breadcrumbs %>
+        <%= yield %>
+      </div>
+    </div>
+
+<!-- Footer ================================================== -->
+<footer id="footer">
+  <div class="container">
+    <div class="row friendlink hidden-sm hidden-xs ">
+      <div class="col-md-12 hidden-sm hidden-xs footer-left footer-left-top">
+        友情链接：<a href="http://www.zhyw.net " target="_blank" title="中国周易网">中国周易网</a>&nbsp;&nbsp;<a href="http://www.mafulin.com/bbs/" target="_blank" title="中华易经网">中华易经网</a>&nbsp;&nbsp;<a href="http://www.liesao.com/" target="_blank" title="周易快搜">周易快搜</a>&nbsp;&nbsp;<a href="http://www.wushukun.com/" target="_blank" title="伍蜀昆易学论坛">伍蜀昆易学论坛</a>&nbsp;&nbsp;<a href="http://www.huifengju.com" target="_blank" title="慧风居易学风水网">慧风居易学风水网</a>&nbsp;&nbsp;<a href="http://www.df167.com" target="_blank" title="易学武林同盟">易学武林同盟</a>&nbsp;&nbsp;<a href="http://www.yucetiandi.com/" target="_blank" title="中国预测天地">中国预测天地</a>&nbsp;&nbsp;<a href="http://www.sun989.com " target="_blank" title="中国周易研究会">中国周易研究会</a>&nbsp;&nbsp;<a href="http://liuyukun.5d6d.com/" target="_blank" title="刘宇坤易理论坛 ">刘宇坤易理论坛 </a>&nbsp;&nbsp;<a href="http://www.zhouyi95.net/" target="_blank" title="中国周易预测联盟">中国周易预测联盟</a>&nbsp;&nbsp;<a href="http://www.anniyixue.com/" target="_blank" title="安妮易学论坛">安妮易学论坛</a>&nbsp;&nbsp;<a href="http://www.zhouyiyuce.com.cn/bbs/forum.php" target="_blank" title="易龙阁论坛">易龙阁论坛</a>&nbsp;&nbsp;<a href="http://www.yihaich.com/   " target="_blank" title="易海策划网">易海策划网</a>&nbsp;&nbsp;<a href="http://www.4z8z.com/" target="_blank" title="乘风命理论坛">乘风命理论坛</a>&nbsp;&nbsp;<a href="http://www.honghuashe.com/" target="_blank" title="弘化社">弘化社</a>&nbsp;&nbsp;<a href="http://bbs.hjqing.com/bbs" target="_blank" title="黄金易园">黄金易园</a>&nbsp;&nbsp;<a href="http://znmlyj.5d6d.com/bbs.php" target="_blank" title="终南命理 ">终南命理 </a>&nbsp;&nbsp;<a href="http://www.d5168.com" target="_blank" title="周新春易学网">周新春易学网</a>&nbsp;&nbsp;<a href="http://www.d02.cn" target="_blank" title="灵儿算命网">灵儿算命网</a>&nbsp;&nbsp;<a href="http://www.fengdaoyixue.com" target="_blank" title="学算命论坛">学算命论坛</a>&nbsp;&nbsp;<a href="http://www.longyin.net" target="_blank" title="龙隐周易算命">龙隐周易算命</a>&nbsp;&nbsp;<a href="http://www.lijizhong.com/" target="_blank" title="乾易网">乾易网</a>&nbsp;&nbsp;<a href="http://ykb.haotui.com" target="_blank" title="周易北方联盟">周易北方联盟</a>&nbsp;&nbsp;<a href="http://www.yixuan123.com/" target="_blank" title="生辰八字算命网">生辰八字算命网</a>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 footer-left footer-left-top">
+        <div>
+          Copyright © 2013 易学论坛. 版权所有 All rights reserved.
+        </div>
+        <div class="license-to">经营许可证编号：<a href="http://www.miibeian.gov.cn/" rel="nofollow" target="_blank">苏B2-20130524</a></div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+    <!-- Javascripts ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <%= javascript_include_tag "application" %>
+
+  </body>
 </html>
