@@ -8,7 +8,7 @@ class CreateTopics < ActiveRecord::Migration
       t.integer :feedback
       t.integer :state
       t.integer :views
-      t.integer :replies
+      t.integer :reply_count
       t.integer :top
       t.integer :essence
 

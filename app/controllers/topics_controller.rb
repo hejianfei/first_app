@@ -1,8 +1,9 @@
 class TopicsController < ApplicationController
+  before_filter :authorize, :only => [:edit, :delete]
   # GET /topics
   # GET /topics.json
   def index
-    @topics = Topic.all
+    @topics = Topic.where(:state => 1).paginate(:page => params[:page], :per_page => 1).order('updated_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,7 +15,7 @@ class TopicsController < ApplicationController
   # GET /topics/1.json
   def show
     @topic = Topic.find(params[:id])
-
+    add_view (@topic) if @topic
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @topic }
@@ -44,7 +45,6 @@ class TopicsController < ApplicationController
     @topic.feedback = 0
     @topic.state = 1
     @topic.views = 0
-    @topic.replies = 0
     @topic.top = 0
     @topic.essence = 0
     respond_to do |format|
@@ -84,5 +84,10 @@ class TopicsController < ApplicationController
       format.html { redirect_to topics_url }
       format.json { head :no_content }
     end
+  end
+
+  def add_view (topic)
+    topic.views = topic.views + 1 if topic
+    topic.save
   end
 end

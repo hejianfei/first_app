@@ -4,6 +4,7 @@ gem 'rails', '3.2.13'
 
 gem 'activerecord-mysql-adapter'
 gem 'mysql2', '0.3.11'
+gem 'will_paginate', '~> 3.0'
 
 group :development do
   # gem 'sqlite3', '1.3.5'
