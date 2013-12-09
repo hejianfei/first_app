@@ -10,6 +10,26 @@ class UsersController < ApplicationController
     end
   end
 
+  def login
+    #三种登陆方式，用户名=>1;手机号=>2;邮箱=>3;默认为1.
+    login_type = params[:login_type].blank? ? 1 : params[:login_type].to_i
+    condition = "name=? and password=?" 
+    condition = "mobile=? and password=?" if login_type==2
+    condition = "email=? and password=?" if login_type==3
+    
+    @user = User.valid.where(condition, params[:username],params[:password]).first
+    session[:current_user] = @user if @user
+    respond_to do |format|
+      format.html { redirect_to topics_url }
+      format.json { render json: @topic }
+    end
+  end
+
+  def logout
+    session[:current_user] = nil if session[:current_user]
+    redirect_to topics_url 
+  end
+
   # GET /users/1
   # GET /users/1.json
   def show

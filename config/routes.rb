@@ -1,12 +1,13 @@
 FirstApp::Application.routes.draw do
-  resources :replies
 
-
-  resources :topics
-
+  match "/users/login" => "users#login"
+  match "/users/logout" => "users#logout"
 
   resources :users
 
+  resources :replies
+
+  resources :topics
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
