@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_filter :authenticate, :only => [:index, :edit, :update, :destroy]
   # GET /users
   # GET /users.json
   def index
@@ -100,4 +101,13 @@ class UsersController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  protected
+
+  def authenticate
+    if session[:current_user].blank? or session[:current_user].admin!=1
+      redirect_to "/topics", notice: 'Please login as admin!'
+    end
+  end
+
 end

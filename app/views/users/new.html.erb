@@ -1,5 +1,47 @@
-<h1>New user</h1>
-
-<%= render 'form' %>
-
-<%= link_to 'Back', users_path %>
+<% provide(:title, '用户注册 - 易学论坛') %>
+<form class="form-horizontal" role="form" id="new_user" method="post" action="/users" accept-charset="UTF-8">
+  <div class="form-group">
+  	<label for="inputName" class="col-sm-2 control-label">用户名</label>
+  	<div class="col-sm-10">
+  	  <input id="user_name" type="text" size="30" name="user[name]"></input>
+	</div>
+  </div>
+  <div class="form-group">
+	<label for="inputPassword" class="col-sm-2 control-label">密码</label>
+  	<div class="col-sm-10">
+  	  <input id="user_password" type="password" size="30" name="user[password]"></input>
+	</div>
+  </div>
+  <div class="form-group">
+    <label for="inputEmail" class="col-sm-2 control-label">电子邮箱</label>
+    <div class="col-sm-10">
+      <input id="user_email" type="text" size="30" name="user[email]"></input>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputMobile" class="col-sm-2 control-label">手机号码</label>
+    <div class="col-sm-10">
+      <input id="user_mobile" type="number" name="user[mobile]"></input>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputIsAdmin" class="col-sm-2 control-label">是否管理员</label>
+    <div class="col-sm-10">
+      <input id="user_admin" type="number" value="0" name="user[admin]"></input>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <div class="checkbox">
+        <label>
+          <input type="checkbox"> Remember me
+        </label>
+      </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">提交</button>
+    </div>
+  </div>
+</form>

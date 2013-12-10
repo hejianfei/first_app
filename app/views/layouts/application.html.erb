@@ -15,7 +15,7 @@
 
     <%= stylesheet_link_tag "application", :media => "all" %>
 
-    <%#= For third-generation iPad with high-resolution Retina display: %>
+    <!-- <%#= For third-generation iPad with high-resolution Retina display: %>
     <%#= Size should be 144 x 144 pixels %>
     <%= favicon_link_tag 'apple-touch-icon-144x144-precomposed.png', :rel => 'apple-touch-icon-precomposed', :type => 'image/png', :sizes => '144x144' %>
 
@@ -33,7 +33,7 @@
 
     <%#= For all other devices %>
     <%#= Size should be 32 x 32 pixels %>
-    <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %>
+    <%= favicon_link_tag 'favicon.ico', :rel => 'shortcut icon' %> -->
   </head>
   <body data-spy="scroll" data-target=".bs-docs-sidebar">
 
@@ -49,14 +49,15 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="/topics">Brand</a>
+    <a class="navbar-brand" href="/topics">帖子</a>
   </div>
 
   <!-- Collect the nav links, forms, and other content for toggling -->
   <div class="collapse navbar-collapse" id="navbar-collapse-1">
     <ul class="nav navbar-nav">
-      <li class="active"><a href="/">首页</a></li>
-      <li><a href="/topics">帖子</a></li>
+      <% if session[:current_user] and session[:current_user].admin==1 %>
+      <li class="active"><a href="/users">用户管理</a></li>
+      <% end %>
     </ul>
     <form class="navbar-form navbar-left" role="search">
       <div class="form-group">
