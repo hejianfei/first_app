@@ -1,9 +1,10 @@
 class TopicsController < ApplicationController
   before_filter :authorize, :only => [:edit, :delete]
+  before_filter :user_online, :only => [:new, :create, :edit]
   # GET /topics
   # GET /topics.json
   def index
-    @topics = Topic.where(:state => 1).paginate(:page => params[:page], :per_page => 1).order('updated_at DESC')
+    @topics = Topic.where(:state => 1).paginate(:page => params[:page], :per_page => 10).order('updated_at DESC')
 
     respond_to do |format|
       format.html # index.html.erb
@@ -46,6 +47,7 @@ class TopicsController < ApplicationController
     @topic.state = 1
     @topic.views = 0
     @topic.top = 0
+    @topic.user_id = session[:current_user].id
     @topic.essence = 0
     respond_to do |format|
       if @topic.save

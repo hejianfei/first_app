@@ -3,4 +3,9 @@ class Topic < ActiveRecord::Base
   belongs_to :user
   has_many :replies
   validates :title, :length => { :min => 2, :maximum => 20 }
+
+  def add_reply_count
+  	self.reply_count += 1
+  	self.save
+  end
 end

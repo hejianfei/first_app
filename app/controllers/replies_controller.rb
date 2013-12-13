@@ -1,4 +1,5 @@
 class RepliesController < ApplicationController
+  before_filter :user_online, :only => [:create, :edit, :delete]
   # GET /replies
   # GET /replies.json
   def index
@@ -41,10 +42,12 @@ class RepliesController < ApplicationController
   # POST /replies.json
   def create
     @reply = Reply.new(params[:reply])
+    @reply.user_id = session[:current_user].id
 
     respond_to do |format|
       if @reply.save
-        format.html { redirect_to @reply, notice: 'Reply was successfully created.' }
+        @reply.topic.add_reply_count
+        format.html { redirect_to @reply.topic, notice: 'Reply was successfully created.' }
         format.json { render json: @reply, status: :created, location: @reply }
       else
         format.html { render action: "new" }

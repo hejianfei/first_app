@@ -28,19 +28,18 @@
   <div class="col-md-12 pad10 col-md-re" desc="topic">
   <div class="clearfix marginbtm40">
     <div class="col-md-2 col-sm-2 hidden-xs">
-      <div style="display: none;" class="card" id="personal_info_card_ykykyto8sbixt"><div class="well col-md-12 hidden-sm hidden-xs"><i class="roadtips roadtips-re"></i><div class="clearfix"><div class="col-md-12 mb10 member-avatar padnone clearfix"><div>  </div></div></div><div class="mb5 clearfix"><span>供应：</span></div><div class="mb5 clearfix"><span>采购：</span></div><div class="mb5 clearfix"><span>QQ：</span></div></div></div>
       <div class="mb10">
-        <a href="/u-sdsi8oby8x" target="_blank"><%=@topic.user.name %></a>
+        <a href="/users/<%=@topic.user.id %>" target="_blank"><%=@topic.user.name %></a>
           <span class="glyphicon glyphicon-certificate" title="当前离线"></span>
       </div>
       <div class="member-avatar mb10">
-        <div id="user_info" topic_id="ykykyto8sbixt">
-          <a href="/u-sdsi8oby8x"><img id="user_image_80128" class="avatar" src="/images/user/medium/0.gif" alt="<%=@topic.user.name %>"></a>
+        <div id="user_info" topic_id="<%=@topic.id %>">
+          <a href="/users/<%=@topic.user.id %>"><img id="user_image_80128" class="avatar" src="/images/user/medium/0.gif" alt="<%=@topic.user.name %>"></a>
 
         </div>
       </div>
-      <p class="fans-space">积分：<strong>9</strong></p>
-      <p class="fans-space">金币：<strong>14</strong></p>
+      <!-- <p class="fans-space">积分：<strong>9</strong></p>
+      <p class="fans-space">金币：<strong>14</strong></p> -->
     </div>
     <!-- 左侧的用户信息显示 结束 -->
     <!-- 右侧的主贴详细信息显示 开始 -->
@@ -57,33 +56,32 @@
     -->
     <div class="mb20 clearfix">
       <div class="col-xs-10 col-sm-10 hidden-lg hidden-md hidden-sm padnone clearfix">
-        <div class="fl member-avatar padnone "><a href="/u-sdsi8oby8x"><img id="user_image_80128" class="avatar" src="/images/user/small/0.gif" alt="环球电子"></a></div>
+        <div class="fl member-avatar padnone "><a href="/users/<%=@topic.user.id %>"><img id="user_image_80128" class="avatar" src="/images/user/small/0.gif" alt="/users/<%=@topic.user.name %>"></a></div>
         <div class="fl ml20">
-          <div class="mb5"><a href="/u-sdsi8oby8x" target="_blank">环球电子</a>
+          <div class="mb5"><a href="/users/<%=@topic.user.id %>" target="_blank"><%=@topic.user.name %></a>
               <span class="glyphicon glyphicon-certificate" title="当前离线"></span>
           </div>
-          <div>2013-12-07 17:38</div>
+          <div><%=@topic.created_at.strftime("%F") %></div>
         </div>
       </div>
       <div class="col-xs-2 col-sm-2 text-right hidden-lg hidden-md hidden-sm padnone clearfix">
         <span class="floorsm">1F</span>
       </div>
       <div class="col-md-10 col-sm-10 padnone hidden-xs hidden-sm mb15">
-        <span class="mr10">发表于<%=@topic.created_at %></span>
+        <span class="mr10">发表于<%=@topic.created_at.strftime("%F") %></span>
         <span class="mr10"><span class="glyphicon glyphicon-eye-open"></span>&nbsp;&nbsp;<%=@topic.views %></span>
         <span class="mr10"><span class="glyphicon glyphicon-comment"></span>&nbsp;&nbsp;<%=@topic.reply_count %></span>
       </div>
     </div>
     <!-- 主贴内容 -->
-    <div class="col-*-12 main-contents clearfix"><%=@topic.content %></div>
+    <div class="col-*-12 main-contents clearfix">
+      <textarea><%=@topic.content.html_safe %></textarea>
+    </div>
     
     <!-- 用户革新签名 -->
     <!-- 百度分享以及回复与举报 -->
     <div class="col-*-12 padnone clearfix mt20 border-toppad border-toppad-re">
       <div class="col-md-10 col-sm-10 col-xs-10 padnone">
-            <div class="fl mr20">
-              <a class="btn btn-success btn-radius" title="收藏" id="add_to_fav" href="#" topic_id="1111770"><span class="glyphicon glyphicon-star"></span>&nbsp;&nbsp;收藏</a>
-            </div>
         <!-- Baidu Button BEGIN-->
         <div id="bdshare" class="fl mt5 hidden-xs bdshare_t bds_tools get-codes-bdshare">
           <span class="bds_more">分享到：</span>
@@ -101,7 +99,7 @@
         <!-- Baidu Button END -->
       </div>
       <div class="col-md-2 col-sm-2 col-xs-2 text-right padnone">
-            <a href="javascript:void(0);" rel="nofollow" onclick="javascript:replay('楼主','环球电子', '80128', 1)" data-remote="true" data-type="script" class="visible-md visible-lg">回复</a>
+            <a href="javascript:void(0);" rel="nofollow" onclick="javascript:reply('楼主','环球电子', '80128', 1)" data-remote="true" data-type="script" class="visible-md visible-lg">回复</a>
             <a class="visible-xs" desc="reply_topic" href="javascript:void(0);" rel="nofollow" floor="楼主" nick="环球电子" u_id="80128" f_type="1">回复</a>
             <a class="visible-sm" desc="reply_topic_pad" href="javascript:void(0);" rel="nofollow" floor="楼主" nick="环球电子" u_id="80128" f_type="1">回复</a>
       </div>
@@ -112,14 +110,16 @@
   </div>
 <!-- 主贴的详情展示 结束 -->
 <!-- 回复的详情展示 开始 -->
+<% if @topic.replies 
+     i = 1
+     @topic.replies.each do |reply| %>
 <div class="col-md-12 pad10 col-md-re clearfix" desc="replies" id="show_replies">
-  <div class="clearfix" created_at="2013-12-07 20:29:41" name="more_replies" topic_id="1111770">
+  <div class="clearfix" created_at="<%=reply.created_at %>" name="more_replies" topic_id="<%=reply.topic.id %>">
   <!-- 左侧的用户信息显示 开始 -->
   <div class="col-md-2 col-sm-2 hidden-xs">
-    <div style="display: none;" class="card" id="personal_info_card_d08kkrykorkiiw"><div class="well col-md-12 hidden-sm hidden-xs"><i class="roadtips roadtips-re"></i><div class="clearfix"><div class="col-md-12 mb10 member-avatar padnone clearfix"><div>女 山东省青岛市 建筑和装饰材料</div></div></div><div class="mb5 clearfix"><span>供应：</span>钢板，彩涂板</div><div class="mb5 clearfix"><span>采购：</span></div><div class="mb5 clearfix"><span>QQ：</span></div> <div class="mb5 clearfix"><span>Skype：</span></div><div class="clearfix"><div class="mb5 col-*-12"><a href="/outbox_messages/new/8pdspixzcxp" data-remote="true" data-type="script" rel="nofollow" target="_blank">发短消息</a></div><div class="col-*-12"><a href="javascript:void(0);" rel="nofollow" class="aFocus follow follow_8pdspixzcxp" data="8pdspixzcxp">加关注</a>                        <span class="cancel_follow cancel_follow_8pdspixzcxp" style="display:none" data="8pdspixzcxp" nick-data="qdtf">已关注&nbsp;|&nbsp;<a class="aCancel" href="javascript:void(0);">取消</a></span></div></div></div></div>
     <div><a name="d08kkrykorkiiw"></a></div>
     <div class="mb10">
-      <a href="/u-8pdspixzcxp" target="_blank">qdtf</a>
+      <a href="/users/"+"<%=reply.user.id %>" target="_blank"><%=reply.user.name %></a>
         <span class="glyphicon glyphicon-certificate" title="当前离线"></span>
     </div>
     <div class="">
@@ -131,12 +131,13 @@
         </div>
       </div>
       <div class="mb10 member-avatar">
-        <div reply_id="d08kkrykorkiiw">
-          <a href="/u-8pdspixzcxp"><img id="user_image_51133" class="avatar" src="/images/user/medium/0.gif" alt="qdtf"></a>
+        <div reply_id="<%=reply.id %>">
+          <a href="/users/<%=reply.user.id %>">
+            <img id="user_image_51133" class="avatar" src="/images/user/medium/0.gif" alt="<%=reply.user.name %>"></a>
         </div>
       </div>
-      <p class="fans-space">积分：<strong>71</strong></p>
-      <p class="fans-space">金币：<strong>40870</strong></p>
+      <!-- <p class="fans-space">积分：<strong>71</strong></p>
+      <p class="fans-space">金币：<strong>40870</strong></p> -->
     </div>
   </div>
   <!-- 左侧的用户信息显示 结束 -->
@@ -144,50 +145,35 @@
     <i class="roadtips hidden-xs"></i>
     <div class="clearfix">
       <div class="col-xs-10 padnone hidden-lg hidden-md hidden-sm">
-        <div class="fl member-avatar"><a href="/u-8pdspixzcxp"><img id="user_image_51133" class="avatar" src="/images/user/small/0.gif" alt="qdtf"></a></div>
+        <div class="fl member-avatar"><a href="/users/<%=reply.user.id %>">
+          <img id="user_image_51133" class="avatar" src="/images/user/small/0.gif" alt="<%=reply.user.name %>"></a></div>
         <div class="fl ml20">
-          <div class="mb5"><a href="/u-8pdspixzcxp" target="_blank">qdtf</a>
+          <div class="mb5"><a href="/users/<%=reply.user.id %>" target="_blank"><%=reply.user.name %></a>
               <span class="glyphicon glyphicon-certificate" title="当前离线"></span>
           </div>
-          <div>2013-12-07 20:29</div>
+          <div><%=reply.created_at.strftime("%F") %></div>
         </div>
 
       </div>
       <div class="col-xs-2 padnone hidden-lg hidden-md hidden-sm">
-        <div class="floorsm text-right">2F</div>
+        <div class="floorsm text-right"><%=i+1 %>F</div>
       </div>
       <div class="col-md-10 col-sm-10 padnone hidden-xs">
-        <span>发表于&nbsp;2013-12-07 20:29</span>
+        <span>发表于&nbsp;<%=reply.created_at.strftime("%F") %></span>
       </div>
       <div class="col-md-2 col-sm-2 padnone posr hidden-xs clearfix">
-        <span class="fr"><a href="/replies/d08kkrykorkiiw.html?view_mode=view_one_only&amp;author=8pdspixzcxp" rel="nofollow">只看TA</a></span>
-        <span class="floornum">2F</span>
+        <span class="floornum"><%=i+1 %>F</span>
       </div>
     </div>
     <div class="col-*-12 flootourer min-height2" id="reply_7864180">
-      <p>
-  抢个沙发吧</p>
-
-    </div>
-
-
-    <div class="col-*-12 hidden-xs padnone mt10 mb10">
-      <div class="moderators-inner clearfix" id="add_credits_span_7864180" style="display:none">
-      </div>
-      <div class="moderators-inner clearfix" id="remove_credits_span_7864180" style="display:none">
-      </div>
-    </div>
-    <div class="col-*-12 hidden-xs">
-      <div class="text-right sign-picture">
-        
-      </div>
+      <textarea><%=reply.content %></textarea>
     </div>
     <div class="col-*-12 padnone clearfix mt10 border-toppad">
       <div class="col-md-10 col-sm-10 col-xs-10 padnone"></div>
       <div class="col-md-2 col-sm-2 col-xs-2 text-right padnone">
-            <a class="visible-md visible-lg" href="javascript:void(0);" rel="nofollow" onclick="javascript:void replay('2楼','qdtf', '51133', 1)">回复</a>
-            <a class="visible-xs" href="javascript:void(0);" desc="reply_others" rel="nofollow" floor="2楼" nick="qdtf" u_id="51133" f_type="1">回复</a>
-            <a class="visible-sm" href="javascript:void(0);" desc="reply_others_pad" rel="nofollow" floor="2楼" nick="qdtf" u_id="51133" f_type="1">回复</a>
+            <a class="visible-md visible-lg" href="javascript:void(0);" rel="nofollow" onclick="javascript:void replay('2楼','<%=reply.user.name %>', '<%=reply.user.id %>', 1)">回复</a>
+            <a class="visible-xs" href="javascript:void(0);" desc="reply_others" rel="nofollow" floor="2楼" nick="<%=reply.user.name %>" u_id="<%=reply.user.id %>" f_type="1">回复</a>
+            <a class="visible-sm" href="javascript:void(0);" desc="reply_others_pad" rel="nofollow" floor="2楼" nick="<%=reply.user.name %>" u_id="<%=reply.user.id %>" f_type="1">回复</a>
       </div>
     </div>
     <div class="col-*-12 padnone text-right hidden-xs">
@@ -195,6 +181,10 @@
   </div>
   </div>
 </div>
+<% 
+    i=i+1  
+    end 
+  end   %>
 <!-- 回复的详情展示 结束 -->
 <!-- 分页与发贴回复按钮组 开始 -->
 <div class="col-md-12 marb20 willpaginates clearfix" desc="willpaginate">
@@ -216,221 +206,38 @@
   <!-- 回复与发贴按钮组 结束 -->
 </div>
 <!-- 分页与发贴回复按钮组 结束 -->
-<div class="col-md-12 pad10 mb20"><button class="visible-xs moreormore" id="more_replies">查看更多</button></div>
+  <div class="col-md-12 pad10 mb20"><button class="visible-xs moreormore" id="more_replies">查看更多</button></div>
 
-<div class="col-md-12 hidden-xs" desc="">
-<div class="quickReply"><a name="add"></a>
-<div class="panel panel-success panel-reply-redo marginbtm30">
-<div class="panel-heading">
-  <h3 class="caption-panel-title">回复该帖</h3>
-    <span>（<span class="required">*</span>为必填项）</span>
-</div>
+  <div class="col-md-12 hidden-xs" desc="">
+    <div class="quickReply"><a name="add"></a>
+      <div class="panel panel-success panel-reply-redo marginbtm30">
+        <div class="panel-heading">
+          <h3 class="caption-panel-title">回复该帖</h3>
+            <span>（<span class="required">*</span>为必填项）</span>
+        </div>
 
-</div>
-</div>
-
-<!--置顶-->
-  <!-- <form accept-charset="UTF-8" action="/topics/ykykyto8sbixt/top" class="edit_topic" data-remote="true" id="top_topic_form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="Fb/gTcB9OtwOiZ9Y08+pcD9F0znY8CS7Uz8ET6ndFYk=" type="hidden"></div>
-    <script type="text/javascript">
-      (function ($) {
-        $('#top_topic_form').bind("ajax:success", function (event, data, status, xhr) {
-          $('#popbox').hide();
-          alert(data);
-          $('#down_top_link').show();
-          $('#top_link').hide();
-          $('#move_link').hide();
-        })
-            .bind("ajax:error", function (event, request) {
-              alert(request.responseText);
-            });
-      })(jQuery);
-    </script>
-    <table class="subpop-table" border="0" cellpadding="0" cellspacing="0" width="100%">
-      <colgroup>
-        <col width="20%">
-        <col width="80%">
-      </colgroup>
-      <tbody><tr>
-        <th>范围:</th>
-        <td>
-          <select name="top_topic_form[stype]">
-            <option value="0">本版</option>
-            <option value="1">本分区</option>
-            <option value="2">全局</option>
-          </select>
-      </td></tr>
-      <tr>
-        <th>有效期:</th>
-        <td><select id="top_topic_form_end_date_1i" name="top_topic_form[end_date(1i)]">
-<option value="2008">2008</option>
-<option value="2009">2009</option>
-<option value="2010">2010</option>
-<option value="2011">2011</option>
-<option value="2012">2012</option>
-<option selected="selected" value="2013">2013</option>
-<option value="2014">2014</option>
-<option value="2015">2015</option>
-<option value="2016">2016</option>
-<option value="2017">2017</option>
-<option value="2018">2018</option>
-</select>
-<select id="top_topic_form_end_date_2i" name="top_topic_form[end_date(2i)]">
-<option value="1">1月</option>
-<option value="2">2月</option>
-<option value="3">3月</option>
-<option value="4">4月</option>
-<option value="5">5月</option>
-<option value="6">6月</option>
-<option value="7">7月</option>
-<option value="8">8月</option>
-<option value="9">9月</option>
-<option value="10">10月</option>
-<option value="11">11月</option>
-<option selected="selected" value="12">12月</option>
-</select>
-<select id="top_topic_form_end_date_3i" name="top_topic_form[end_date(3i)]">
-<option value="1">1</option>
-<option value="2">2</option>
-<option value="3">3</option>
-<option value="4">4</option>
-<option value="5">5</option>
-<option value="6">6</option>
-<option value="7">7</option>
-<option value="8">8</option>
-<option value="9">9</option>
-<option value="10">10</option>
-<option value="11">11</option>
-<option value="12">12</option>
-<option value="13">13</option>
-<option value="14">14</option>
-<option selected="selected" value="15">15</option>
-<option value="16">16</option>
-<option value="17">17</option>
-<option value="18">18</option>
-<option value="19">19</option>
-<option value="20">20</option>
-<option value="21">21</option>
-<option value="22">22</option>
-<option value="23">23</option>
-<option value="24">24</option>
-<option value="25">25</option>
-<option value="26">26</option>
-<option value="27">27</option>
-<option value="28">28</option>
-<option value="29">29</option>
-<option value="30">30</option>
-<option value="31">31</option>
-</select>
-</td>
-      </tr>
-      <tr>
-        <th>操作原因:</th>
-        <td><textarea style="width:350px" cols="20" name="top_topic_form[reason]" rows="5"></textarea></td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td><input checked="checked" name="is_pm" value="1" type="checkbox">
-          发短消息通知作者
-        </td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td><input id="btn_add_credits_form" value="确定" type="submit">
-          <input value="取消" onclick="$('popbox').hide()" type="reset">
-        </td>
-      </tr>
-    </tbody></table>
-</form>  --> 
-<!--取消置顶-->
-  <!-- <form accept-charset="UTF-8" action="/topics/ykykyto8sbixt/down_top" class="edit_topic" data-remote="true" id="down_top_topic_form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="Fb/gTcB9OtwOiZ9Y08+pcD9F0znY8CS7Uz8ET6ndFYk=" type="hidden"></div>
-    <script type="text/javascript">
-      (function ($) {
-        $('#down_top_topic_form').bind("ajax:success", function (event, data, status, xhr) {
-          $('#popbox').hide();
-          alert(data);
-          $('#down_top_link').hide();
-          $('#top_link').show();
-          $('#move_link').show();
-        })
-            .bind("ajax:error", function (event, request) {
-              alert(request.responseText);
-            });
-      })(jQuery);
-    </script>
-    <input name="id" value="1111770" type="hidden">
-    <table class="subpop-table" cellpadding="0" cellspacing="0" width="100%">
-      <colgroup>
-        <col width="20%">
-        <col width="80%">
-      </colgroup>
-      <tbody><tr>
-        <th>操作原因:</th>
-        <td><textarea style="width:350px" cols="20" name="top_topic_form[reason]" rows="5"></textarea></td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>
-          <input checked="checked" name="is_pm" value="1" type="checkbox">发短消息通知作者
-        </td>
-      </tr>
-      <tr>
-        <td>&nbsp;</td>
-        <td>
-          <input value="确定" type="submit">
-          <input value="取消" onclick="$('popbox').hide()" type="reset">
-        </td>
-      </tr>
-    </tbody></table>
-</form> -->
-</div>
-<!-- end -->
-<!-- email 推荐表单-->
-<!-- <div style="display:none;">
-  <form accept-charset="UTF-8" action="/topics/email_recommend" class="edit_topic" data-remote="true" id="email_recommend_form" method="post"><div style="margin:0;padding:0;display:inline"><input name="utf8" value="✓" type="hidden"><input name="authenticity_token" value="Fb/gTcB9OtwOiZ9Y08+pcD9F0znY8CS7Uz8ET6ndFYk=" type="hidden"></div>
-    <script type="text/javascript">
-      (function ($) {
-        $('#email_recommend_form').bind("ajax:success", function (event, data, status, xhr) {
-          $('#popbox').hide();
-          alert(data);
-        })
-            .bind("ajax:error", function (event, request) {
-              alert(request.responseText);
-            });
-      })(jQuery);
-    </script>
-    <input id="topic_id" name="topic[id]" value="1111770" type="hidden">
-    <table summary="Email Friend" class="subpop-table" cellpadding="0" cellspacing="0" width="100%">
-      <colgroup>
-        <col width="22%">
-        <col width="78%">
-      </colgroup>
-      <tbody>
-      <tr>
-        <th><span class="required">*</span> 接收者名字</th>
-        <td><input id="receiver_name" name="receiver[name]" size="35" type="text"></td>
-      </tr>
-      <tr>
-        <th><span class="required">*</span> 接收者 Email</th>
-        <td><input id="receiver_email" name="receiver[email]" size="35" type="text"></td>
-      </tr>
-      <tr>
-        <th><span class="required">*</span> 内容</th>
-        <td><textarea style="width: 350px;" name="mail[body]" rows="5">          你好！我在商聚园看到了这篇帖子，认为很有价值，特推荐给你。
-          帖子地址: http://www.shangjuyuan.com/forum/article-ykykyto8sbixt-1.html 希望你能喜欢。</textarea>
-        </td>
-      </tr>
-      <tr class="btns">
-        <td>&nbsp;</td>
-        <td><input src="/images/button_send.gif" alt="提交" type="image">
-          <img src="/images/button_cancel.gif" onclick="$('popbox').hide()" alt="取消"></td>
-      </tr>
-      </tbody>
-    </table>
-</form></div>-->
-<!-- end -->
-<!-- 推送帖子到开锣网 -->
-<!-- end -->
+        <form class="form-horizontal" role="form" id="post_form" method="post" action="/replies/create" accept-charset="UTF-8">
+          <input type="hidden" value="ADekLuZFndn7NR1+6oOanMQkXiZ+CZZ1sWI78kpfQ5o=" name="authenticity_token"></input>
+          <input id="reply_topic_id" type="hidden" value="<%=@topic.id %>" name="reply[topic_id]"></input>
+          <input id="topic_user_id" type="hidden" value="66759" name="topic_user_id"></input>
+          <div class="form-group">
+            <label for="reply_content" class="col-sm-2 control-label">内容</label>
+            <div class="col-sm-10">
+              <textarea id="reply_content" class="form-control" rows="3" name="reply[content]"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default">发表回复</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 <!--返回顶部-->
-<div class="hidden-xs"><div style="display: none; top: 538px; left: 1163px;" class="goTop"><a href="javascript:;" rel="nofollow"></a></div></div>
+  <div class="hidden-xs">
+    <div style="display: none; top: 538px; left: 1163px;" class="goTop"><a href="javascript:;" rel="nofollow"></a></div>
+  </div>
 </div>
