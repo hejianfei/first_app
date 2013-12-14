@@ -17,6 +17,7 @@ class TopicsController < ApplicationController
   def show
     @topic = Topic.find(params[:id])
     add_view (@topic) if @topic
+    @reply = Reply.new
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @topic }

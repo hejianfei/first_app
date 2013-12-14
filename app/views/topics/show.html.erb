@@ -47,8 +47,7 @@
     <!-- 主贴标题 手机上显示h4的标题 其它显示h2 -->
     <i class="roadtips hidden-xs"></i>
     <div class="text-center">
-      <h2 class="posts-title hidden-xs"><%=@topic.title %></h2>
-      <h4 class="posts-title posts-left hidden-md hidden-sm hidden-lg"><%=@topic.title %></h4>
+      <h4 style="text-align:left;bolder;"><%=@topic.title %></h4>
     </div>
     <!--
       发贴人信息 手机上显示发贴人的头像、昵称及发帖时间
@@ -75,7 +74,7 @@
     </div>
     <!-- 主贴内容 -->
     <div class="col-*-12 main-contents clearfix">
-      <textarea><%=@topic.content.html_safe %></textarea>
+      <textarea style="width: 100%; overflow-y:visible" readonly><%=@topic.content.html_safe %></textarea>
     </div>
     
     <!-- 用户革新签名 -->
@@ -165,8 +164,8 @@
         <span class="floornum"><%=i+1 %>F</span>
       </div>
     </div>
-    <div class="col-*-12 flootourer min-height2" id="reply_7864180">
-      <textarea><%=reply.content %></textarea>
+    <div class="col-*-12 flootourer min-height2" id="reply_<%=reply.id%>">
+      <textarea rows="8" style="width: 100%;border:0" readonly><%=reply.content.html_safe %></textarea>
     </div>
     <div class="col-*-12 padnone clearfix mt10 border-toppad">
       <div class="col-md-10 col-sm-10 col-xs-10 padnone"></div>
@@ -216,14 +215,14 @@
             <span>（<span class="required">*</span>为必填项）</span>
         </div>
 
-        <form class="form-horizontal" role="form" id="post_form" method="post" action="/replies/create" accept-charset="UTF-8">
-          <input type="hidden" value="ADekLuZFndn7NR1+6oOanMQkXiZ+CZZ1sWI78kpfQ5o=" name="authenticity_token"></input>
+        <!-- <form class="form-horizontal" role="form" id="post_form" method="post" action="/replies/create" accept-charset="UTF-8"> -->
+        <%= form_for @reply,:html => {:role => 'form', :class=>'form-horizontal'} do |f| %>
           <input id="reply_topic_id" type="hidden" value="<%=@topic.id %>" name="reply[topic_id]"></input>
           <input id="topic_user_id" type="hidden" value="66759" name="topic_user_id"></input>
           <div class="form-group">
             <label for="reply_content" class="col-sm-2 control-label">内容</label>
             <div class="col-sm-10">
-              <textarea id="reply_content" class="form-control" rows="3" name="reply[content]"></textarea>
+              <textarea id="reply_content" class="form-control" rows="8" name="reply[content]"></textarea>
             </div>
           </div>
           <div class="form-group">
@@ -231,7 +230,8 @@
               <button type="submit" class="btn btn-default">发表回复</button>
             </div>
           </div>
-        </form>
+          <% end -%>
+        <!-- </form> -->
       </div>
     </div>
   </div>
