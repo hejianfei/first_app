@@ -1,5 +1,7 @@
 FirstApp::Application.routes.draw do
 
+  root to: 'topics#index'
+
   match "/users/login" => "users#login"
   match "/users/logout" => "users#logout"
   match "/replies/create" => "replies#create"
@@ -9,6 +11,8 @@ FirstApp::Application.routes.draw do
   resources :replies
 
   resources :topics
+
+  mount Ckeditor::Engine => '/ckeditor'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

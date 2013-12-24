@@ -74,7 +74,7 @@
     </div>
     <!-- 主贴内容 -->
     <div class="col-*-12 main-contents clearfix">
-      <textarea style="width: 100%; overflow-y:visible" readonly><%=@topic.content.html_safe %></textarea>
+      <%=@topic.content.html_safe %>
     </div>
     
     <!-- 用户革新签名 -->
@@ -165,7 +165,7 @@
       </div>
     </div>
     <div class="col-*-12 flootourer min-height2" id="reply_<%=reply.id%>">
-      <textarea rows="8" style="width: 100%;border:0" readonly><%=reply.content.html_safe %></textarea>
+      <%=reply.content.html_safe %>
     </div>
     <div class="col-*-12 padnone clearfix mt10 border-toppad">
       <div class="col-md-10 col-sm-10 col-xs-10 padnone"></div>
@@ -222,7 +222,9 @@
           <div class="form-group">
             <label for="reply_content" class="col-sm-2 control-label">内容</label>
             <div class="col-sm-10">
-              <textarea id="reply_content" class="form-control" rows="8" name="reply[content]"></textarea>
+              <div class="field" > 
+                <%= f.cktext_area :content, :toolbar=>'Full',:width=>800,:height=>400 %>  
+              </div>
             </div>
           </div>
           <div class="form-group">
