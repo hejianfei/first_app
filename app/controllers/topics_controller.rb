@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class TopicsController < ApplicationController
   before_filter :authorize, :only => [:edit, :delete]
   before_filter :user_online, :only => [:new, :create, :edit]
@@ -5,7 +6,7 @@ class TopicsController < ApplicationController
   # GET /topics.json
   def index
     @topics = Topic.where(:state => 1).paginate(:page => params[:page], :per_page => 10).order('updated_at DESC')
-
+    @forecasters = User.where(:is_forecaster=>1, :state => 1).order('id DESC').limit(10)
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @topics }

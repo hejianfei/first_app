@@ -5,14 +5,15 @@
 <table class="table table-striped">
   <thead>
     <tr>
-      <th><%= model_class.human_attribute_name(:id) %></th>
-      <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:email) %></th>
-      <th><%= model_class.human_attribute_name(:mobile) %></th>
-      <th><%= model_class.human_attribute_name(:admin) %></th>
-      <th><%= model_class.human_attribute_name(:ip) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
-      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+      <th>序号</th>
+      <th>用户名</th>
+      <th>Email</th>
+      <th>手机号码</th>
+      <th>管理员</th>
+      <th>IP地址</th>
+      <th>创建时间</th>
+      <th>预测师</th>
+      <th>操作</th>
     </tr>
   </thead>
   <tbody>
@@ -24,7 +25,8 @@
         <td><%= user.mobile %></td>
         <td><%= (user.admin and user.admin==1)? '是' : '否' %></td>
         <td><%= user.ip %></td>
-        <td><%= user.created_at %></td>
+        <td><%= user.created_at.strftime("%Y-%m-%d %H:%M") %></td>
+        <td><%= forecaster_stat(user.is_forecaster) %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_user_path(user), :class => 'btn btn-mini' %>
@@ -33,6 +35,11 @@
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
                       :class => 'btn btn-mini btn-danger' %>
+          <% if user.is_forecaster==0 %>            
+          <a href="/users/audit/<%=user.id %>">审核通过</a>
+          <% elsif user.is_forecaster==1 %>
+          已经通过
+          <% end -%>
         </td>
       </tr>
     <% end %>

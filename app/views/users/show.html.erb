@@ -1,12 +1,12 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Name:</b>
+  <b>用户名:</b>
   <%= @user.name %>
 </p>
 
 <p>
-  <b>Password:</b>
+  <b>密码:</b>
   <%= @user.password %>
 </p>
 
@@ -16,13 +16,18 @@
 </p>
 
 <p>
-  <b>Mobile:</b>
+  <b>手机号码:</b>
   <%= @user.mobile %>
 </p>
 
 <p>
-  <b>Admin:</b>
-  <%= @user.admin %>
+  <b>管理员:</b>
+  <%= @user.admin==1?'是':'否' %>
+</p>
+
+<p>
+  <b>预测师:</b>
+  <%= @user.is_forecaster==1?'是':'否' %>
 </p>
 
 <p>

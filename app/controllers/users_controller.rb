@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class UsersController < ApplicationController
   before_filter :authenticate, :only => [:index, :edit, :update, :destroy]
   # GET /users
@@ -100,6 +101,16 @@ class UsersController < ApplicationController
       format.html { redirect_to users_url }
       format.json { head :no_content }
     end
+  end
+
+  def audit
+    @user = User.find_by_id(params[:id])
+    @user.is_forecaster = 1
+    @user.save
+    @forecaster = Forecaster.find_by_user_id(params[:id])
+    @forecaster.state = 1
+    @forecaster.save
+    redirect_to "index", notice:"用户#{@user.name}已经审核通过为预测师！"
   end
 
   protected

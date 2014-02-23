@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class RepliesController < ApplicationController
   before_filter :user_online, :only => [:create, :edit, :delete]
   # GET /replies

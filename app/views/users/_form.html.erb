@@ -12,11 +12,11 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label "用户名" %><br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :password %><br />
+    <%= f.label "密码" %><br />
     <%= f.text_field :password %>
   </div>
   <div class="field">
@@ -24,16 +24,20 @@
     <%= f.text_field :email %>
   </div>
   <div class="field">
-    <%= f.label :mobile %><br />
+    <%= f.label "手机号码" %><br />
     <%= f.number_field :mobile %>
   </div>
   <div class="field">
-    <%= f.label :admin %><br />
+    <%= f.label "管理员" %><br />
     <%= f.number_field :admin %>
   </div>
   <div class="field">
     <%= f.label :ip %><br />
     <%= f.text_field :ip %>
+  </div>
+  <div class="field">
+    <%= f.label "是否预测师" %><br />
+    <%= f.number_field :is_forecaster %>
   </div>
   <div class="actions">
     <%= f.submit %>

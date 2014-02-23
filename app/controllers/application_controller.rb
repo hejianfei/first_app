@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 class ApplicationController < ActionController::Base
   protect_from_forgery
 
@@ -5,7 +6,7 @@ class ApplicationController < ActionController::Base
 
   def user_online
     if session[:current_user].blank? 
-      redirect_to "/topics", notice: 'Please login!'
+      redirect_to "/", notice: 'Please login!'
     end
   end
 end

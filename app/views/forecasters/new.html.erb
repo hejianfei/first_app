@@ -1,0 +1,28 @@
+<% provide(:title, '申请成为预测师 - 易学论坛') %>
+<p id="notice"><%= notice %></p>
+<form class="form-horizontal" role="form" id="new_forecaster" method="post" action="/forecasters" accept-charset="UTF-8">
+  <input type="hidden" name="forecaster[user_id]" value="<%=session[:current_user].id%>">
+  <div class="form-group">
+  	<label for="inputName" class="col-sm-2 control-label"><font color="FF0000">*</font>真实姓名</label>
+  	<div class="col-sm-10">
+  	  <input id="forecaster_name" type="text" size="20" name="forecaster[name]"></input>
+	</div>
+  </div>
+  <div class="form-group">
+    <label for="inputMobile" class="col-sm-2 control-label"><font color="FF0000">*</font>手机号码</label>
+    <div class="col-sm-10">
+      <input id="forecaster_mobile" type="text" size="20" name="forecaster[mobile]"></input>
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="inputQq" class="col-sm-2 control-label">QQ号码</label>
+    <div class="col-sm-10">
+      <input id="forecaster_qq" type="number" name="forecaster[qq]"></input>
+    </div>
+  </div>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">提交</button>
+    </div>
+  </div>
+</form>

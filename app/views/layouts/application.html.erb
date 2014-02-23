@@ -70,9 +70,11 @@
     </form>
     <ul class="nav navbar-nav navbar-right">
       <% if session[:current_user].blank? %>
+      <li class="" data-toggle="modal" data-target="#promptModal"><a href="">申请成为预测师</a></li>
       <li class="" data-toggle="modal" data-target="#loginModal"><a href="/users/login">登录</a></li>
       <li class=""><a href="/users/new">注册</a></li>
       <% else %>
+      <li class=""><a href="/forecasters/new">申请成为预测师</a></li>
       <li class=""><%= link_to session[:current_user].name, user_path(session[:current_user])%></li>
       <li class=""><a href="/users/logout">退出</a></li>
       <% end %>
@@ -111,7 +113,7 @@
   </div>
 </footer>
 <!-- Modal -->
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+<div class="modal fade" id="loginModal" tabindex="-2" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -147,6 +149,25 @@
         <button type="submit" class="btn btn-primary">登录</button>
       </div>
       </form>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<!-- forecaster Modal -->
+<div class="modal fade" id="promptModal" tabindex="-1" role="dialog" aria-labelledby="forecasterModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title" id="myModalLabel">用户注册登录</h4>
+      </div>
+      <div class="modal-body">
+        请先登录或注册以使用此功能
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-toggle="modal" data-target="#loginModal" data-dismiss="modal">登录</button>
+        <button type="button" class="btn btn-primary" onclick="javascript:window.open('/users/new');">注册</button>
+      </div>
     </div><!-- /.modal-content -->
   </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->

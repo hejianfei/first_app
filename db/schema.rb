@@ -11,31 +11,41 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131208130721) do
+ActiveRecord::Schema.define(:version => 20140223072129) do
 
-  create_table "replies", :force => true do |t|
-    t.integer  "topic_id"
-    t.text     "content"
+  create_table "forecasters", :force => true do |t|
     t.integer  "user_id"
-    t.integer  "is_valid"
-    t.integer  "top"
+    t.string   "name"
+    t.string   "mobile"
+    t.string   "qq"
+    t.integer  "state"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
+  create_table "replies", :force => true do |t|
+    t.integer  "topic_id",                  :null => false
+    t.text     "content",                   :null => false
+    t.integer  "user_id"
+    t.integer  "is_valid",   :default => 1
+    t.integer  "top",        :default => 0
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
+  end
+
   create_table "topics", :force => true do |t|
-    t.string   "title"
-    t.text     "content"
+    t.string   "title",                      :null => false
+    t.text     "content",                    :null => false
     t.integer  "user_id"
     t.integer  "category_id"
-    t.integer  "feedback"
-    t.integer  "state"
-    t.integer  "views"
-    t.integer  "replies"
-    t.integer  "top"
-    t.integer  "essence"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.integer  "feedback",    :default => 0
+    t.integer  "reply_count", :default => 0
+    t.integer  "state",       :default => 1
+    t.integer  "views",       :default => 0
+    t.integer  "top",         :default => 0
+    t.integer  "essence",     :default => 0
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
   end
 
   create_table "users", :force => true do |t|
@@ -43,10 +53,12 @@ ActiveRecord::Schema.define(:version => 20131208130721) do
     t.string   "password"
     t.string   "email"
     t.integer  "mobile"
-    t.integer  "admin"
+    t.integer  "admin",         :limit => 1, :default => 0
     t.string   "ip"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "state",         :limit => 1, :default => 1
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.integer  "is_forecaster",              :default => 0
   end
 
 end

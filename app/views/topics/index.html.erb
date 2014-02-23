@@ -4,7 +4,7 @@
     <button type="button" class="btn btn-success" onclick="javascript:window.open('/topics/new');">发帖</button>
   </div>
 </div>
-<div class="col-md-12 pad12 col-md-re">
+<div class="col-md-10 pad10 col-md-re">
   <div class="panel-content-redo marginbtm25">
     <table class="table table-hover">
     <!-- <table class="respon-table" border="0" cellpadding="0" cellspacing="0" width="100%"> -->
@@ -35,5 +35,19 @@
       <%= will_paginate @topics %>
       </tbody>
     </table>
+  </div>
+</div>
+
+<div class="col-md-2 pad2 col-md-re">
+  <div class="panel panel-default">
+  <div class="panel-heading">新注册的老师</div>
+  <div class="panel-body">
+    <%if @forecasters.size > 0 
+        @forecasters.each do |forecaster|
+    %>
+        <%=forecaster.name %>
+    <%  end 
+      end %>
+  </div>
 </div>
 </div>

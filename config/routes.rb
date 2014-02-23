@@ -4,6 +4,7 @@ FirstApp::Application.routes.draw do
 
   match "/users/login" => "users#login"
   match "/users/logout" => "users#logout"
+  match "/users/audit/:id" => "users#audit"
   match "/replies/create" => "replies#create"
 
   resources :users
@@ -11,6 +12,8 @@ FirstApp::Application.routes.draw do
   resources :replies
 
   resources :topics
+
+  resources :forecasters
 
   mount Ckeditor::Engine => '/ckeditor'
 
